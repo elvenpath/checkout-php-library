@@ -4,6 +4,7 @@ namespace com\checkout\ApiServices\Charges\RequestModels;
 class BaseCharge extends BaseChargeInfo
 {
 	protected $_email;
+    protected $_customerName;
 	protected $_customerId;
 	protected $_description;
 	protected $_autoCapture;
@@ -13,6 +14,7 @@ class BaseCharge extends BaseChargeInfo
 	protected $_value;
 	protected $_currency;
 	protected $_customerIp;
+    protected $_chargeMode;
 
 	/**
 	 * @return mixed
@@ -28,6 +30,22 @@ class BaseCharge extends BaseChargeInfo
 	public function setCustomerIp ( $customerIp )
 	{
 		$this->_customerIp = $customerIp;
+	}
+    
+    /**
+	 * @return mixed
+	 */
+	public function getCustomerName()
+	{
+		return $this->_customerName;
+	}
+
+	/**
+	 * @param mixed $customerName
+	 */
+	public function setCustomerName ( $customerName )
+	{
+		$this->_customerName = $customerName;
 	}
 
 	/**
@@ -177,6 +195,17 @@ class BaseCharge extends BaseChargeInfo
 		$this->_products[] = $products;
 	}
 
+    public function getChargeMode ()
+    {
+        return $this->_chargeMode;
+    }
 
+    /**
+     * @param mixed $autoCapTime
+     */
+    public function setChargeMode ( $chargeMode )
+    {
+        $this->_chargeMode = $chargeMode;
+    }
 
 }

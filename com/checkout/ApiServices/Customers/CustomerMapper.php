@@ -49,7 +49,11 @@ class CustomerMapper
 			if(method_exists($requestModel,'getEmail') && ($email = $requestModel->getEmail())) {
 				$requestPayload['email'] = $email;
 			}
-
+            
+            if(method_exists($requestModel,'getCustomerName') && ($customerName = $requestModel->getCustomerName())) {
+				$requestPayload['customerName'] = $customerName;
+			}
+            
 			if(method_exists($requestModel,'getMetadata') && ($metadata = $requestModel->getMetadata())) {
 				$requestPayload['metadata'] = $metadata;
 			}
@@ -75,8 +79,15 @@ class CustomerMapper
 						'country'      => $billingAddress->getCountry () ,
 						'city'         => $billingAddress->getCity () ,
 						'state'        => $billingAddress->getState () ,
-						'phone'        => $billingAddress->getPhone ()
 					);
+                                        
+                    if($billingAddress->getPhone () != null){
+                      $billingAddressConfig = array_merge_recursive ( $billingAddressConfig , 
+                          array (
+                            'phone' => $billingAddress->getPhone()->getPhoneDetails() 
+                          )
+                      );
+                    }  
 					$requestPayload[ 'card' ][ 'billingDetails' ] = $billingAddressConfig;
 				}
 

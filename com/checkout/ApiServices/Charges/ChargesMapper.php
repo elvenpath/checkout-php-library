@@ -45,6 +45,14 @@ class ChargesMapper
 			if(method_exists($requestModel,'getEmail') && $requestModel->getEmail()) {
 				$requestPayload['email'] = $requestModel->getEmail();
 			}
+            
+            if(method_exists($requestModel,'getCustomerName') && $requestModel->getCustomerName()) {
+				$requestPayload['customerName'] = $requestModel->getCustomerName();
+			}
+            
+            if(method_exists($requestModel,'getCustomerId') && $requestModel->getCustomerId()) {
+				$requestPayload['customerId'] = $requestModel->getCustomerId();
+			}
 
 			if(method_exists($requestModel,'getValue') && $requestModel->getValue()) {
 				$requestPayload['value'] = $requestModel->getValue();
@@ -57,6 +65,10 @@ class ChargesMapper
 			if(method_exists($requestModel,'getDescription') && $requestModel->getDescription()) {
 				$requestPayload['description'] = $requestModel->getDescription();
 			}
+            
+            if(method_exists($requestModel,'getChargeMode') && $requestModel->getChargeMode()) {
+                $requestPayload['chargeMode'] = $requestModel->getChargeMode();
+            }
 
 			if(method_exists($requestModel,'getChargeId') && $requestModel->getChargeId()) {
 				$requestPayload['chargeId'] = $requestModel->getChargeId();
@@ -106,6 +118,10 @@ class ChargesMapper
                 $requestPayload['autoCapture'] = $autoCapture;
             }
 
+            if(method_exists($requestModel,'getLocalPayment') && $localPayment = $requestModel->getLocalPayment()) {
+                $requestPayload['localPayment'] = $localPayment;
+            }
+
             if(method_exists($requestModel,'getTransactionIndicator') && $transactionIndicator = $requestModel->getTransactionIndicator()) {
                 $requestPayload['transactionIndicator'] = $transactionIndicator;
             }
@@ -118,12 +134,17 @@ class ChargesMapper
 					'country' => $shippingAddress->getCountry () ,
 					'city' => $shippingAddress->getCity () ,
 					'state' => $shippingAddress->getState () ,
-					'phone' => $shippingAddress->getPhone ()->getPhoneDetails() ,
-
 
 				);
+                
+            if ($shippingAddress->getPhone() != null) {
+                $shippingAddressConfig = array_merge_recursive($shippingAddressConfig, array(
+                   'phone' => $shippingAddressConfig->getPhone()->getPhoneDetails()
+                )
+              );
+            }
 
-				$requestPayload['shippingDetails'] = $shippingAddressConfig;
+        $requestPayload['shippingDetails'] = $shippingAddressConfig;
 			}
 
 			if(method_exists($requestModel,'getEmail') && $productsItem =  $requestModel->getProducts()) {
@@ -174,11 +195,16 @@ class ChargesMapper
 						'country'      => $billingAddress->getCountry () ,
 						'city'         => $billingAddress->getCity () ,
 						'state'        => $billingAddress->getState () ,
-						'phone'        => $billingAddress->getPhone ()
 					);
+                    if($billingAddress->getPhone () != null){
+                      $billingAddressConfig = array_merge_recursive ( $billingAddressConfig , 
+                          array (
+                            'phone' => $billingAddress->getPhone()->getPhoneDetails() 
+                          )
+                      );
+                    }
 					$requestPayload[ 'card' ][ 'billingDetails' ] = $billingAddressConfig;
 				}
-
 
 				if ( $name = $cardBase->getName () ) {
 					$requestPayload[ 'card' ][ 'name' ] = $name;
@@ -203,6 +229,10 @@ class ChargesMapper
 
 			if(method_exists($requestModel,'getCardId') && $cardId = $requestModel->getCardId()) {
 				$requestPayload[ 'cardId' ] = $cardId;
+			}
+            
+            if(method_exists($requestModel,'getCvv') && $cvv = $requestModel->getCvv()) {
+				$requestPayload[ 'cvv' ] = $cvv;
 			}
 
 			if(method_exists($requestModel,'getCardToken') && $cardToken = $requestModel->getCardToken()) {

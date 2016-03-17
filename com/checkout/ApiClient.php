@@ -7,18 +7,20 @@ class ApiClient
 	private  $_chargeService;
 	private  $_cardService;
 	private  $_customerService;
+	private  $_reportingService;
+	private  $_recurringPaymentService;
+	private  $_alternativePaymentService;
 
-    /**
-     * @return mixed
-     */
+	/**
+	 * @return ApiServices\Customers\CustomerService
+	 */
     public function customerService()
     {
         return $this->_customerService;
     }
 
-
 	/**
-	 * @return mixed
+	 * @return ApiServices\Charges\ChargeService
 	 */
 	public function chargeService ()
 	{
@@ -26,7 +28,7 @@ class ApiClient
 	}
 
 	/**
-	 * @return mixed
+	 * @return ApiServices\Tokens\TokenService
 	 */
 	public function tokenService ()
 	{
@@ -41,7 +43,29 @@ class ApiClient
 		return $this->_cardService;
 	}
 
+	/**
+	 * @return ApiServices\Reporting\ReportingService
+	 */
+	public function reportingService ()
+	{
+		return $this->_reportingService;
+	}
 
+	/**
+	 * @return ApiServices\RecurringPayments\RecurringPaymentService
+	 */
+	public function recurringPaymentService ()
+	{
+		return $this->_recurringPaymentService;
+	}
+
+	/**
+	 * @return ApiServices\AlternativePayments\AlternativePaymentService
+	 */
+	public function alternativePaymentService ()
+	{
+		return $this->_alternativePaymentService;
+	}
 
 	public function __construct($secretKey, $env = 'sandbox' ,$debugMode = false, $connectTimeout = 60, $readTimeout =
 	60)
@@ -57,8 +81,9 @@ class ApiClient
 		$this->_chargeService = new ApiServices\Charges\ChargeService($appSetting);
 		$this->_cardService = new ApiServices\Cards\CardService($appSetting);
 		$this->_customerService = new ApiServices\Customers\CustomerService($appSetting);
+		$this->_reportingService = new ApiServices\Reporting\ReportingService($appSetting);
+		$this->_recurringPaymentService = new ApiServices\RecurringPayments\RecurringPaymentService($appSetting);
+		$this->_alternativePaymentService = new ApiServices\AlternativePayments\AlternativePaymentService($appSetting);
 
 	}
-
-
 }
