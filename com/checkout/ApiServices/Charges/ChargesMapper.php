@@ -118,6 +118,10 @@ class ChargesMapper
                 $requestPayload['autoCapture'] = $autoCapture;
             }
 
+            if(method_exists($requestModel,'getLocalPayment') && $localPayment = $requestModel->getLocalPayment()) {
+                $requestPayload['localPayment'] = $localPayment;
+            }
+
             if(method_exists($requestModel,'getTransactionIndicator') && $transactionIndicator = $requestModel->getTransactionIndicator()) {
                 $requestPayload['transactionIndicator'] = $transactionIndicator;
             }

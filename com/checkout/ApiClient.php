@@ -9,6 +9,7 @@ class ApiClient
 	private  $_customerService;
 	private  $_reportingService;
 	private  $_recurringPaymentService;
+	private  $_alternativePaymentService;
 
 	/**
 	 * @return ApiServices\Customers\CustomerService
@@ -58,6 +59,14 @@ class ApiClient
 		return $this->_recurringPaymentService;
 	}
 
+	/**
+	 * @return ApiServices\AlternativePayments\AlternativePaymentService
+	 */
+	public function alternativePaymentService ()
+	{
+		return $this->_alternativePaymentService;
+	}
+
 	public function __construct($secretKey, $env = 'sandbox' ,$debugMode = false, $connectTimeout = 60, $readTimeout =
 	60)
 	{
@@ -74,6 +83,7 @@ class ApiClient
 		$this->_customerService = new ApiServices\Customers\CustomerService($appSetting);
 		$this->_reportingService = new ApiServices\Reporting\ReportingService($appSetting);
 		$this->_recurringPaymentService = new ApiServices\RecurringPayments\RecurringPaymentService($appSetting);
+		$this->_alternativePaymentService = new ApiServices\AlternativePayments\AlternativePaymentService($appSetting);
 
 	}
 }

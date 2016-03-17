@@ -27,7 +27,8 @@ class ApiUrls
 	private $_recurringPaymentsQueryApiUri	= null;
 	private $_recurringPaymentsCustomersApiUri	= null;
 	private $_recurringPaymentsCustomersQueryApiUri	= null;
-
+	private $_alternativePaymentChargeApiUri	= null;
+	private $_alternativePaymentLookupApiUri	= null;
 
 	public function __construct()
 	{
@@ -486,5 +487,45 @@ class ApiUrls
 		$this->_recurringPaymentsCustomersQueryApiUri = $recurringPaymentsCustomersQueryApiUri;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getAlternativePaymentChargeApiUri ()
+	{
 
+		if(!$this->_alternativePaymentChargeApiUri) {
+			$this->setAlternativePaymentChargeApiUri($this->getBaseApiUri()."/charges/localpayment");
+		}
+
+		return $this->_alternativePaymentChargeApiUri;
+	}
+
+	/**
+	 * @param string $alternativePaymentChargeApiUri
+	 */
+	public function setAlternativePaymentChargeApiUri ( $alternativePaymentChargeApiUri )
+	{
+		$this->_alternativePaymentChargeApiUri = $alternativePaymentChargeApiUri;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAlternativePaymentLookupApiUri ()
+	{
+
+		if(!$this->_alternativePaymentLookupApiUri) {
+			$this->setAlternativePaymentLookupApiUri($this->getBaseApiUri()."/lookups/localpayments/%s/tags/issuerid");
+		}
+
+		return $this->_alternativePaymentLookupApiUri;
+	}
+
+	/**
+	 * @param string $alternativePaymentLookupApiUri
+	 */
+	public function setAlternativePaymentLookupApiUri ( $alternativePaymentLookupApiUri )
+	{
+		$this->_alternativePaymentLookupApiUri = $alternativePaymentLookupApiUri;
+	}
 }
