@@ -30,6 +30,11 @@ class CardList extends \com\checkout\ApiServices\SharedModels\BaseHttp
 		$this->_count = $count;
 	}
 
+	public function getCount ()
+	{
+        return $this->_count;
+ 	}
+
 	/**
 	 * @param mixed $data
 	 */
@@ -41,6 +46,11 @@ class CardList extends \com\checkout\ApiServices\SharedModels\BaseHttp
 			$this->_data[] = $this->getCard($card);
 		}
 	}
+
+	public function getData ()
+	{
+        return $this->_data;
+ 	}
 
 	/**
 	 * @param mixed $object
