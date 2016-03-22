@@ -139,7 +139,7 @@ class ChargesMapper
                 
             if ($shippingAddress->getPhone() != null) {
                 $shippingAddressConfig = array_merge_recursive($shippingAddressConfig, array(
-                   'phone' => $shippingAddressConfig->getPhone()->getPhoneDetails()
+                   'phone' => $shippingAddress->getPhone()->getPhoneDetails()
                 )
               );
             }
